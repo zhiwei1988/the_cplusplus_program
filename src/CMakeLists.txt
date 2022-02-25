@@ -1,4 +1,4 @@
-set(SRC create_thread.cpp)
+set(SRC chrono_demo.cpp)
 
 add_executable(app ${SRC})
 

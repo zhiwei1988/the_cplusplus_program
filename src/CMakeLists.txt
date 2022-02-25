@@ -1,4 +1,4 @@
-set(SRC chrono_demo.cpp)
+set(SRC lock_demo.cpp)
 
 add_executable(app ${SRC})
 

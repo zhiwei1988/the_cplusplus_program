@@ -34,3 +34,7 @@
 # temp
 build/
 output/
+
+# CLion
+.idea
+cmake-build-debug

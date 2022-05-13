@@ -1,4 +1,4 @@
-set(SRC lock_demo.cpp)
+set(SRC threadsafe-queue.cpp)
 
 add_executable(app ${SRC})
 

@@ -1,0 +1,98 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B",
+                "build",
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--config",
+                "Debug"
+            ],
+            "group": "build",
+            "dependsOn": [
+                "cmake"
+            ]
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${workspaceFolder}/output/bin/app",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Run All Tests",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--verbose",
+                "--output-on-failure"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/test"
+            },
+            "group": "test",
+            "dependsOn": [
+                "build"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "debug",
+            "type": "shell",
+            "command": "gdb",
+            "args": [
+                "${workspaceFolder}/output/bin/app"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "build"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

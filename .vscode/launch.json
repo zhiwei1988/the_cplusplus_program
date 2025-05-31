@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "gdb(launch)",
+            "type": "cppdbg",
+            "request": "launch", // // 请求类型，"launch" 表示启动程序，"attach" 表示附加到已运行进程
+            "program": "${workspaceFolder}/output/bin/app", // ${workspaceFolder} 代表当前工作区的根目录
+            "args": [], // 程序运行时传递的命令行参数，例如 ["arg1", "arg2"]
+            "stopAtEntry": false, // 是否在程序入口处停止，false 表示不停止
+            "cwd": "${fileDirname}", // 工作目录，${fileDirname} 代表当前文件的目录
+            "environment": [], // 需要设置的环境变量
+            "externalConsole": false, // 是否使用外部控制台，false 表示不使用
+            "MIMode": "lldb", // 调试器类型，"lldb" 表示使用 LLDB 调试器，"gdb" 表示使用 GDB 调试器
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build" // 【可选】在启动调试前运行的任务 (例如编译任务)
+        }
+
+    ]
+}

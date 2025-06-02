@@ -48,7 +48,7 @@ f(rx); // T 的类型是 const int，param 的类型是 const int&
 rx 的引用属性在类型推导时被忽略了。
 
 ```cpp
-emplate<typename T>
+template<typename T>
 void f(const T& param); // ParamType 是 const T&
 
 int x = 27;
@@ -229,3 +229,28 @@ TD<decltype(x)> xType; // 诱发包含 x 类别的错误信息
 // C++ 标准规定，name 中处理类别的方式仿佛是向函数模版按值传递形参一样
 std::cout << typeid(x).name() << '\n';
 ```
+
+## 函数返回值类型推导
+
+```cpp
+template <> inline decltype(auto) get<INDEX>(STRUCT_NAME & s)                                       {                                                                                                                  
+    return (s.FIELD_NAME(FIELD_PAIR));                                                                               
+}
+
+template <> inline auto get<INDEX>(STRUCT_NAME & s)                                       {                                                                                                                  
+    return (s.FIELD_NAME(FIELD_PAIR));                                                                               
+}
+```
+
+￼decltype(auto) (C++14 及更高版本): 这种返回类型推导会推导出 return 语句中表达式的精确类型，包括其值类别（lvalue 或 rvalue）和 const/volatile 限定符。
+
+- 如果 s.FIELD_NAME(FIELD_PAIR) 返回一个左值引用（例如 int&），那么 get 函数将返回 int&。
+- ￼如果 s.FIELD_NAME(FIELD_PAIR) 返回一个右值（例如 int 的临时对象），那么 get 函数将返回 int。
+- 如果 s.FIELD_NAME(FIELD_PAIR) 返回一个 const int&，那么 get 函数将返回 const int&。
+
+auto (C++11 及更高版本): 这种返回类型推导会推导出 return 语句中表达式的值类型。这意味着它会执行“类型衰减”(type decay)
+
+- ￼如果 s.FIELD_NAME(FIELD_PAIR) 返回一个左值引用（例如 int&），auto 会将其衰减为 int（值类型），从而导致返回一个拷贝。
+￼- 如果 s.FIELD_NAME(FIELD_PAIR) 返回一个 const int&，auto 会将其衰减为 int，同样导致返回一个拷贝。
+￼- 如果 s.FIELD_NAME(FIELD_PAIR) 返回一个右值（例如 int 的临时对象），auto 也会推导出 int。
+

@@ -38,3 +38,7 @@ output/
 # CLion
 .idea
 cmake-build-debug
+
+# misc
+.cache/
+.DS_Store

@@ -20,3 +20,21 @@ void print(Args... args)
 {
     (std::cout << ... << AddSpace(args)) << '\n';
 }
+
+template<typename... T>
+void printDouble(T const&... args)
+{
+	print(args + args...);
+}
+
+template<typename T1, typename... TN>
+constexpr bool isHomogeneous (T1, TN...)
+{
+    return (std::is_same<T1, TN>::value && ...);
+}
+
+template<typename C, typename... Idx>
+void printElems(C const& coll, Idx... idx)
+{
+    print(coll[idx]...);
+}
